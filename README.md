@@ -1,5 +1,13 @@
 # Payfirma-Woocommerce-Plugin
 
+
+== Changelog ==
+
+= 3.1 = 
+* update plugin with V2 API 
+* change key & merchant_id to Client Id & Client Secret
+
+
 ## Installation
 
 The first step in your integration will be installing WooCommerce to your WordPress storefront.
