@@ -1,6 +1,6 @@
 # Payfirma-Woocommerce-Plugin
 
-#Installation
+##Installation
 
 The first step in your integration will be installing WooCommerce to your WordPress storefront.
 
@@ -8,3 +8,5 @@ Once you’ve logged into your WordPress account, you’ll be able to find the P
 
 Plugins to expand available options before clicking on the revealed option
 Add New.
+
+(https://1.png)
