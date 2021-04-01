@@ -47,7 +47,15 @@ This is where you will be able to enter in your assigned Client ID and Client Se
 
 
 
+## To get Client ID and Client Secret
+Please, Login at PayHQ ang go to Settings.
+[PayHQ Settings](https://hq.payfirma.com/#/settings/ecommerce)
 
+![Screen Shot 2021-04-01 at 9 42 48 AM](https://user-images.githubusercontent.com/67436452/113326535-a55a2a00-92ce-11eb-93e1-e01059b9203d.png)
 
+### Add keys
 
+![Screen Shot 2021-04-01 at 9 43 30 AM](https://user-images.githubusercontent.com/67436452/113326600-bd31ae00-92ce-11eb-80c0-e6d4636d630e.png)
+
+You can get your Client ID & Clinet Secret.
 
