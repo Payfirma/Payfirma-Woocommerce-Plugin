@@ -1,5 +1,6 @@
 # Payfirma-Woocommerce-Plugin
 
+# Plugin Name: Payfirma_Woo_Gateway
 
 == Changelog ==
 
