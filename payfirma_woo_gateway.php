@@ -129,6 +129,11 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
  */
 function check_ssl_valid(){
 
+    // * ============================================= * //
+    // TODO HAVE TO REMOVE AFTER TESTING
+    // * ============================================= * //
+    // return true;
+
     //global $woocommerce;
 
     $return ='false';
@@ -230,7 +235,11 @@ function check_ssl_checkoutpage(){
  * @return string
  */
 function force_ssl_checked(){
-    
+    // * ============================================= * //
+    // TODO HAVE TO REMOVE AFTER TESTING
+    // * ============================================= * //
+    // return true;
+
     $return ='false';
     $ssl_forced = get_option('woocommerce_force_ssl_checkout');
 
@@ -340,7 +349,7 @@ class Payfirma_Logger{
     public function create_logfile($plugin=''){
 
 
-        $newFileName2 = ABSPATH.'wp-content/plugins/Payfirma_Woo_Gateway/logs/logfile.php';
+        $newFileName2 =  plugin_dir_path( __FILE__ ) .‘/logs/logfile.php’;
         $newFileContent2 = " <?php if (!defined('ABSPATH')) exit; // Exit if accessed directly ?>".PHP_EOL;
 
         if(!file_exists($newFileName2)):
@@ -369,7 +378,7 @@ class Payfirma_Logger{
 
         $content = '+ '.$type.' Error Occured: '.$date.': '.$error.PHP_EOL;
 
-        $file = ABSPATH.'/wp-content/plugins/Payfirma_Woo_Gateway/logs/logfile.php';
+        $file = plugin_dir_path( __FILE__ ) .‘/logs/logfile.php’;
 
         file_put_contents($file, $content, FILE_APPEND | LOCK_EX);
     }
