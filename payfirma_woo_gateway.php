@@ -23,10 +23,6 @@ function payfirma_woo_requires() {
     $plugin_data = get_plugin_data( __FILE__, false );
     $require_wp = "3.5";
 
-    $log = new Payfirma_Logger();
-
-    $log->create_logfile();
-
     $plugin_to_check= 'woocommerce/woocommerce.php';
     $req_woocommerce_version ='2.0';
 
@@ -36,9 +32,6 @@ function payfirma_woo_requires() {
      * Automatically deactivates Payfirma Woo Gateway if WooCommerce is deactivated.
     */
     if ( version_compare( $wp_version, $require_wp, "<" ) ) {
-
-
-       $log->add_to_logfile( 'Payfirma_Gateway', 'Activation check failed. -Wordpress Version-  Required version is '.$require_wp.'.  Current version is'.$wp_version );
 
         if( is_plugin_active($plugin) ) {
             deactivate_plugins( $plugin );
@@ -51,8 +44,6 @@ function payfirma_woo_requires() {
      */
     if( $payfirma_curl=='false'){
 
-       $log->add_to_logfile('Payfirma_Gateway', 'Activation check failed. -cURL- The function curl_exec is not available.');
-
         deactivate_plugins( $plugin );
         wp_die( "<strong>".$plugin_data['Name']."</strong> requires <strong> cURL</strong> to be active, and has been deactivated! Please activate cURL to use ".$plugin_data['Name']." again.<br /><br />Back to the WordPress <a href='".get_admin_url(null, 'plugins.php')."'>Plugins page</a>." );
 
@@ -62,8 +53,7 @@ function payfirma_woo_requires() {
      * Automatically deactivates Payfirma Woo Gateway if SSL is not valid.
      */
     if(check_ssl_valid() !='true'){
-        $log->add_to_logfile('Payfirma_Gateway', 'Activation check failed. -SSL- A valid SSL certificate is not present.');
-
+       
         deactivate_plugins( $plugin );
         wp_die( "<strong>".$plugin_data['Name']."</strong> requires a <strong> valid SSL certificate</strong> to be active, and has been deactivated! Please install a valid SSL certificate to use ".$plugin_data['Name']." again.<br /><br />Back to the WordPress <a href='".get_admin_url(null, 'plugins.php')."'>Plugins page</a>." );
 
@@ -73,8 +63,6 @@ function payfirma_woo_requires() {
      * Automatically deactivates Payfirma Woo Gateway if parent plugin WooCommerce is not active.
      */
     if(!is_plugin_active($plugin_to_check)){
-
-        $log->add_to_logfile( 'Payfirma_Gateway', 'Activation check failed. -WooCommerce inactive- WooCommerce was not active at the time of plugin activation');
 
         deactivate_plugins( $plugin );
         wp_die( "<strong>".$plugin_data['Name']."</strong> requires <strong> WooCommerce</strong> to be active, and has been deactivated! Please activate WooCommerce to use ".$plugin_data['Name']." again.<br /><br />Back to the WordPress <a href='".get_admin_url(null, 'plugins.php')."'>Plugins page</a>." );
@@ -86,8 +74,6 @@ function payfirma_woo_requires() {
          */
 
         if( get_woo_version() < $req_woocommerce_version){
-
-            $log->add_to_logfile( 'Payfirma_Gateway', 'Activation check failed.  -WooCommerce version- Current version of WooCommerce is '.get_woo_version().'.  WooCommerce version number is '.$req_woocommerce_version.' required.');
 
             deactivate_plugins( $plugin );
             wp_die( "<strong>".$plugin_data['Name']."</strong> requires <strong> WooCommerce</strong> to be Version ".$req_woocommerce_version." or above, and has been deactivated! Please install and activate WooCommerce ".$req_woocommerce_version." or above to use ".$plugin_data['Name']." again.<br /><br />Back to the WordPress <a href='".get_admin_url(null, 'plugins.php')."'>Plugins page</a>." );
@@ -335,6 +321,9 @@ function get_woo_version(){
  * Logger class so any issues can be logged in the same place.
  *
  * The logfile is located in the logs folder within the Payfirma_Woo_Gateway plugin folder.
+ * 
+ *  $this->log = new Payfirma_Logger();
+ *  $this->log->add_to_logfile( 'Payfirma_Gateway', 'Authentication Failed:');
  */
 
 class Payfirma_Logger{
@@ -348,8 +337,8 @@ class Payfirma_Logger{
 
     public function create_logfile($plugin=''){
 
-
-        $newFileName2 =  plugin_dir_path( __FILE__ ).'/logs/logfile.php';
+        $newFileName2 = ABSPATH.'wp-content/plugins/Payfirma_Woo_Gateway/logs/logfile.php';
+        // $newFileName2 =  plugin_dir_path( __FILE__ ).'/logs/logfile.php';
         $newFileContent2 = " <?php if (!defined('ABSPATH')) exit; // Exit if accessed directly ?>".PHP_EOL;
 
         if(!file_exists($newFileName2)):
@@ -375,10 +364,9 @@ class Payfirma_Logger{
     public function add_to_logfile($type='',$error=''){
 
         $date = date('Y-m-d H:i:s');
-
         $content = '+ '.$type.' Error Occured: '.$date.': '.$error.PHP_EOL;
-
-        $file = plugin_dir_path( __FILE__ ) .'/logs/logfile.php';
+        $file = ABSPATH.'/wp-content/plugins/Payfirma_Woo_Gateway/logs/logfile.php';
+        // $file = plugin_dir_path( __FILE__ ) .'/logs/logfile.php';
 
         file_put_contents($file, $content, FILE_APPEND | LOCK_EX);
     }
