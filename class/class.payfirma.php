@@ -104,7 +104,10 @@ class WC_Gateway_Payfirma extends WC_Payment_Gateway
         $this->env_error = 'false';
         $this->disablegateway_js ='';
 
+
+        $this->log = new Payfirma_Logger();
         add_action('woocommerce_update_options_payment_gateways_' . $this->id, array($this, 'process_admin_options'));
+
 
         // if force http after checkout is checked don't run SSL checkout page validation
         if ($this->http_force != true) {
@@ -437,7 +440,9 @@ class WC_Gateway_Payfirma extends WC_Payment_Gateway
         $access_token = $this->get_access_token();
         if($access_token == null){
 
+            $this->log->add_to_logfile( 'Payfirma_Gateway', 'Authentication Failed:');
             wc_add_notice( '<strong>Authentication Failed:</strong>Invalid token for payment', $notice_type = 'error' );
+
             return;
         }
 
@@ -464,12 +469,17 @@ class WC_Gateway_Payfirma extends WC_Payment_Gateway
 
        // payment declined
        elseif ($payfirma_result['transaction_result'] === 'DECLINED'):
+
+           $this->log->add_to_logfile( 'Payfirma_Gateway', 'Payment declined:'.var_export($payfirma_result,1));
+
            $error_message = 'Your payment declined.  Please enter your payment details again.';
            wc_add_notice( '<strong>Payment declined:</strong>Please enter your payment details again', $notice_type = 'error' );
            return;
 
        // API issue
        else:
+
+           $this->log->add_to_logfile( 'Payfirma_Gateway', 'Payment error:'.var_export($payfirma_result,1));
            wc_add_notice( '<strong>Payment error:</strong>Please enter your payment details again', $notice_type = 'error' );
            return;
        endif;
