@@ -349,7 +349,7 @@ class Payfirma_Logger{
     public function create_logfile($plugin=''){
 
 
-        $newFileName2 =  plugin_dir_path( __FILE__ ) .‘/logs/logfile.php’;
+        $newFileName2 =  plugin_dir_path( __FILE__ ).'/logs/logfile.php';
         $newFileContent2 = " <?php if (!defined('ABSPATH')) exit; // Exit if accessed directly ?>".PHP_EOL;
 
         if(!file_exists($newFileName2)):
@@ -378,7 +378,7 @@ class Payfirma_Logger{
 
         $content = '+ '.$type.' Error Occured: '.$date.': '.$error.PHP_EOL;
 
-        $file = plugin_dir_path( __FILE__ ) .‘/logs/logfile.php’;
+        $file = plugin_dir_path( __FILE__ ) .'/logs/logfile.php';
 
         file_put_contents($file, $content, FILE_APPEND | LOCK_EX);
     }
