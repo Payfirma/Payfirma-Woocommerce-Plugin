@@ -79,10 +79,20 @@ function payfirma_woo_requires() {
             wp_die( "<strong>".$plugin_data['Name']."</strong> requires <strong> WooCommerce</strong> to be Version ".$req_woocommerce_version." or above, and has been deactivated! Please install and activate WooCommerce ".$req_woocommerce_version." or above to use ".$plugin_data['Name']." again.<br /><br />Back to the WordPress <a href='".get_admin_url(null, 'plugins.php')."'>Plugins page</a>." );
 
         }
-
     }
 
+    if(is_plugin_active($plugin)) {
 
+        add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), 'add_action_links');
+ 
+        function add_action_links ( $actions ) {
+        $settingLinks = array(
+            '<a href="' . admin_url( 'admin.php?page=wc-settings&tab=checkout&section=payfirma_gateway' ) . '">Settings</a>',
+        );
+        $actions = array_merge( $settingLinks , $actions);
+        return $actions;
+        }
+    }
 }
 add_action( 'admin_init', 'payfirma_woo_requires' );
 
@@ -105,6 +115,11 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
     function add_my_style(){
         wp_enqueue_style( 'Payfirma_Style', plugin_dir_url( __FILE__ ) .'css/payfirma.css' );
         //wp_enqueue_script('my_script_js', 'path/to/my_script.js');
+    }
+
+    add_action( 'wp_enqueue_scripts', 'wpdocs_theme_name_scripts' );
+    function wpdocs_theme_name_scripts() {
+        wp_enqueue_script('inputmask', plugin_dir_url( __FILE__ ) .'js/jquery.inputmask.min.js', array('jquery'));
     }
 
 }
@@ -222,9 +237,9 @@ function check_ssl_checkoutpage(){
  */
 function force_ssl_checked(){
     // * ============================================= * //
-    // TODO HAVE TO REMOVE AFTER TESTING
+    // old setting in WooCommerce that would force a site.
     // * ============================================= * //
-    // return true;
+    return true;
 
     $return ='false';
     $ssl_forced = get_option('woocommerce_force_ssl_checkout');
