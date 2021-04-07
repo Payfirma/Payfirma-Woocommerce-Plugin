@@ -18,7 +18,9 @@ function payfirma_checkout_field_checks() {
     } 
     
     if ($_POST['card_number'] && $_POST['payment_method']=='payfirma_gateway' ){
-        if (!is_numeric($_POST['card_number'])){
+
+        $cardNumber = str_replace(' ', '', sanitize($_POST['card_number']));
+        if (!is_numeric($cardNumber)){
             wc_add_notice( '<strong>Credit Card number</strong> includes characters.', $notice_type = 'error' );
         }
     } 
@@ -354,9 +356,19 @@ class WC_Gateway_Payfirma extends WC_Payment_Gateway
        global $woocommerce;
 
         echo'<p>' . __('Credit Card Number*:', 'woocommerce') . ' <input type="text" name="card_number" id="card_number" class="payfirma_card_number"/></p>
-        <p class="payfirma_card_input_padding">' . __('Expires Month*: ', 'woocommerce') . $this->payfirma_select_month_list() .' &nbsp;'.
+            <p class="payfirma_card_input_padding">' . __('Expires Month*: ', 'woocommerce') . $this->payfirma_select_month_list() .' &nbsp;'.
             __('Year*: ', 'woocommerce') . $this->payfirma_select_year_list() . ' </p>
-        <p>' . __('Security Code*:', 'woocommerce') . ' <input type="text" size="5" name="cvv2" id="cvv2" /> <img src="'.plugins_url().'/Payfirma_Woo_Gateway/img/pf13-logo.png"</p>';
+         <p>' . __('Security Code*:', 'woocommerce') . ' <input type="text" size="5" name="cvv2" id="cvv2" /> <img src="'.plugins_url().'/Payfirma_Woo_Gateway/img/pf13-logo.png"</p>';
+       
+        ?> 
+            <script type="text/javascript">
+                // ADD CARD ACTION
+                jQuery(document).ready(function () {
+                    jQuery("#card_number").inputmask({"mask": "9999 9999 9999 9999"});
+                });
+            </script>
+    <?php
+    
     }
 
 
@@ -444,7 +456,6 @@ class WC_Gateway_Payfirma extends WC_Payment_Gateway
         // send data to Payfirma
         $payfirma_result = $this->post_to_payfirma($payfirma_args, $access_token);
 
-
        if ($payfirma_result['transaction_result'] === 'APPROVED'):
 
             // mark payment as complete
@@ -487,6 +498,8 @@ class WC_Gateway_Payfirma extends WC_Payment_Gateway
         global $woocommerce;
         $version_num = get_woo_version();
 
+        $cardNumber = str_replace(' ', '', sanitize($_POST['card_number']));
+
         // payfirma required arguments
         $payfirma_args = json_encode(array(
             'first_name' => $order->billing_first_name,
@@ -505,7 +518,7 @@ class WC_Gateway_Payfirma extends WC_Payment_Gateway
             'currency' => get_woocommerce_currency(),
             'telephone'=> $order->billing_phone,
             // from the cc form on the payment page.
-            'card_number' => sanitize($_POST['card_number']),
+            'card_number' => $cardNumber,
             'card_expiry_month' => sanitize($_POST['card_expiry_month']),
             'card_expiry_year' => sanitize($_POST['card_expiry_year']),
             'cvv2' => sanitize($_POST['cvv2']),
