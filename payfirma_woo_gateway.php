@@ -237,9 +237,9 @@ function check_ssl_checkoutpage(){
  */
 function force_ssl_checked(){
     // * ============================================= * //
-    // old setting in WooCommerce that would force a site.
+    // TODO HAVE TO REMOVE AFTER TESTING
     // * ============================================= * //
-    return true;
+    // return true;
 
     $return ='false';
     $ssl_forced = get_option('woocommerce_force_ssl_checkout');
