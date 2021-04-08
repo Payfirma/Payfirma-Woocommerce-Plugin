@@ -11,6 +11,10 @@
 
 ## Installation
 
+[Payfirma_Woo_Gateway Plugin Download](https://github.com/Payfirma/Payfirma_Woo_Gateway/tree/main/download)
+
+
+
 The first step in your integration will be installing WooCommerce to your WordPress storefront.
 
 Once you’ve logged into your WordPress account, you’ll be able to find the Plugins category in the main menu to the left side of the page, commonly just below Appearance. Click on
