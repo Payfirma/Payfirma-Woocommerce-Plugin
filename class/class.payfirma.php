@@ -240,15 +240,13 @@ class WC_Gateway_Payfirma extends WC_Payment_Gateway
         // if force http after checkout is checked
         if($this->http_force !='no') {
             $errors[] = 'Please uncheck the "Force HTTP when leaving the checkout" option located on
-                     the <a href="' . get_admin_url() . 'admin.php?page=wc-settings&tab=checkout">Checkout Options</a> page.';
-
-
+                     the <a href="' . get_admin_url() . 'admin.php?page=wc-settings&tab=advanced">advanced Options</a> page.';
         }
 
         // if force ssl option is not checked
         if($this->forcesslchecked !='true'){
             $errors[] = 'Please check the "Force Secure Checkout" box on the
-                <a href="' . get_admin_url() . 'admin.php?page=wc-settings&tab=checkout">Checkout Options</a> settings tab.';
+                <a href="' . get_admin_url() . 'admin.php?page=wc-settings&tab=advanced">Checkout Options</a> advanced tab.';
         }
 
         // if currency is invalid
