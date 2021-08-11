@@ -117,9 +117,9 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
         //wp_enqueue_script('my_script_js', 'path/to/my_script.js');
     }
 
-    add_action( 'wp_enqueue_scripts', 'wpdocs_theme_name_scripts' );
-    function wpdocs_theme_name_scripts() {
-        wp_enqueue_script('inputmask', plugin_dir_url( __FILE__ ) .'js/jquery.inputmask.min.js', array('jquery'));
+    add_action( 'wp_enqueue_scripts', 'inputmask_scripts' );
+    function inputmask_scripts() {
+        wp_enqueue_script('inputmask', plugin_dir_url( __FILE__ ) .'js/jquery.inputmask.bundle.min.js', array('jquery'));
     }
 
 }
