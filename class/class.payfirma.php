@@ -102,7 +102,9 @@ class WC_Gateway_Payfirma extends WC_Payment_Gateway
         $this->client_secret = $this->get_option('client_secret');
         $this->client_id = $this->get_option('client_id');
         $this->keys_val = get_option('woocommerce_payfirma_gateway_keys_val');
-        $this->http_force = get_option('woocommerce_unforce_ssl_checkout');
+        //$this->http_force = get_option('woocommerce_unforce_ssl_checkout');
+        $this->http_force = 'no';
+        
         $this->env_error = 'false';
         $this->disablegateway_js ='';
 
