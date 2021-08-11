@@ -131,9 +131,9 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 function check_ssl_valid(){
 
     // * ============================================= * //
-    // TODO HAVE TO REMOVE AFTER TESTING
+    // We don't check ssl valid.
     // * ============================================= * //
-    // return true;
+    return 'true';
 
     //global $woocommerce;
 
@@ -184,6 +184,11 @@ function check_ssl_valid(){
  */
 
 function check_ssl_checkoutpage(){
+    
+    // * ============================================= * //
+    // We don't check ssl valid.
+    // * ============================================= * //
+    return 'true';
 
     //global $woocommerce;
 
@@ -236,10 +241,12 @@ function check_ssl_checkoutpage(){
  * @return string
  */
 function force_ssl_checked(){
+    
     // * ============================================= * //
-    // TODO HAVE TO REMOVE AFTER TESTING
+    // We don't check ssl valid.
     // * ============================================= * //
-    // return true;
+    return 'true';
+
 
     $return ='false';
     $ssl_forced = get_option('woocommerce_force_ssl_checkout');
