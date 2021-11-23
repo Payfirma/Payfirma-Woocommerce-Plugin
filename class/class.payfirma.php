@@ -358,7 +358,7 @@ class WC_Gateway_Payfirma extends WC_Payment_Gateway
         echo'<p>' . __('Credit Card Number*:', 'woocommerce') . ' <input type="text" name="card_number" id="card_number" class="payfirma_card_number"/></p>
             <p class="payfirma_card_input_padding">' . __('Expires Month*: ', 'woocommerce') . $this->payfirma_select_month_list() .' &nbsp;'.
             __('Year*: ', 'woocommerce') . $this->payfirma_select_year_list() . ' </p>
-         <p>' . __('Security Code*:', 'woocommerce') . ' <input type="text" size="5" name="cvv2" id="cvv2" /> <img src="'.plugins_url().'/Payfirma_Woo_Gateway/img/pf13-logo.png"</p>';
+         <p>' . __('Security Code*:', 'woocommerce') . ' <input type="text" size="5" name="cvv2" id="cvv2" /> <img src="'.plugins_url().'/Payfirma_Woo_Gateway/img/pf13-logo.png"></p>';
        
         ?> 
             <script type="text/javascript">
