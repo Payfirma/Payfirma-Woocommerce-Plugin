@@ -80,6 +80,24 @@ function sanitize($input) {
  */
 class WC_Gateway_Payfirma extends WC_Payment_Gateway
 {
+    public $id;
+    public $has_fields;
+    public $method_title;
+    public $method_description;
+    public $title;
+    public $description;
+    public $client_secret;
+    public $client_id;
+    public $keys_val;
+    public $http_force;
+    public $env_error;
+    public $disablegateway_js;
+    public $sslcheck;
+    public $forcesslchecked;
+    public $api_info_valid;
+    public $currency_valid;
+    public $enabled;
+
     public function __construct()
     {
 
